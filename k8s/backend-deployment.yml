@@ -24,7 +24,7 @@ spec:
         - containerPort: 4000
         env:
           - name: MONGO_URL
-            value: "mongodb://admin:password@mongodb-service:27017"
+            value: "mongodb://admin:password@mongo-service:27017/fooddb?authSource=admin"
           - name: MONGO_INITDB_ROOT_USERNAME
             value: "admin"
           - name: MONGO_INITDB_ROOT_PASSWORD

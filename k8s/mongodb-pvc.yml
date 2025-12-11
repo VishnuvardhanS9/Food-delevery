@@ -9,3 +9,4 @@ spec:
       storage: 5Gi
   accessModes:
     - ReadWriteOnce
+  storageClassName: ""
