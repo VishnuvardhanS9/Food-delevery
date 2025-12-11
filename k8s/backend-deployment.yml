@@ -1,9 +1,10 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: Deployment 
 metadata:
   name: backend-deployment
   namespace: food-dev
-
+  labels:
+    app: backend
 spec:
   replicas: 3
   selector:
@@ -11,30 +12,20 @@ spec:
       app: backend
   template:
     metadata:
-      name: backend-pod
+      name:  backend-pod
       namespace: food-dev
       labels:
         app: backend
     spec:
       containers:
-      - name: backend-food
-        image: food-delevery-backend:latest
+      - name: foodapp-backend
+        image: vishnuvardhan225/food-backend:latest
         ports:
         - containerPort: 4000
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: backend-service
-  namespace: food-dev
-
-spec:
-  selector:
-    app: backend
-  ports:
-    - protocol: TCP
-      port: 4000
-      targetPort: 4000
-  type: ClusterIP
+        env:
+          - name: MONGO_URL
+            value: "mongodb://admin:password@mongodb-service:27017"
+          - name: MONGO_INITDB_ROOT_USERNAME
+            value: "admin"
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            value: "password"

@@ -1,38 +1,27 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: Deployment 
 metadata:
   name: frontend-deployment
   namespace: food-dev
-
+  labels:
+    app: frontend
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: frontend
   template:
     metadata:
-      name: frontend-pod
+      name:  frontend-pod
       namespace: food-dev
       labels:
         app: frontend
     spec:
       containers:
-      - name: frontend-food
-        image: food-delevery-frontend:latest
+      - name: foodapp-frontend
+        image: vishnuvardhan225/food-frontend:latest
         ports:
         - containerPort: 3000
-
----
-apiVersion: v1
-kind: Service 
-metadata:
-  name: frontend-service
-  namespace: food-dev
-spec: 
-  selector:
-    app: frontend
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 3000
-  type: LoadBalancer
+        env:
+        - name: HOST
+          value: "0.0.0.0"
